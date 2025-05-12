@@ -1,0 +1,36 @@
+-- Cria a tabela 'criativos' caso ainda não exista
+create table if not exists public.criativos (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null,
+  nome text,
+  texto text,
+  voz text,
+  video_url text,
+  final_url text,
+  status text,
+  created_at timestamp with time zone default now()
+);
+
+-- Ativa o Row Level Security (obrigatório para aplicar policies)
+alter table public.criativos enable row level security;
+
+-- Política de INSERT: apenas se user_id for o do usuário autenticado
+create policy "Insert only own" on public.criativos
+for insert to authenticated
+with check (user_id = auth.uid());
+
+-- Política de SELECT: só pode visualizar os próprios criativos
+create policy "Select own" on public.criativos
+for select to authenticated
+using (user_id = auth.uid());
+
+-- Política de UPDATE: só pode editar seus próprios criativos
+create policy "Update own" on public.criativos
+for update to authenticated
+using (user_id = auth.uid())
+with check (user_id = auth.uid());
+
+-- Política de DELETE: só pode apagar os próprios criativos
+create policy "Delete own" on public.criativos
+for delete to authenticated
+using (user_id = auth.uid());

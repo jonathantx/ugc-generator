@@ -71,7 +71,14 @@ VITE_DREAMFACE_KEY=...
 
 ```bash
 npm run dev
+
 ```
+
+### 🛠️ Setup do Supabase
+
+1. Crie um projeto no [Supabase](https://supabase.com/)
+2. Crie um bucket público chamado `videos` em `Storage`
+3. Vá até o menu “SQL Editor” → cole e execute o conteúdo de [`supabase/supabase-setup.sql`](./supabase/supabase-setup.sql)
 
 ## 📄 Considerações Finais
 

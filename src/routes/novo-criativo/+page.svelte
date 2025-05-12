@@ -6,6 +6,7 @@ import { gerarLipsyncVideo, consultarResultado } from '$lib/dreamface';
 import { createEventDispatcher } from 'svelte';
 import { toast } from 'sonner-svelte';
 
+let SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 let nome = '';
 let texto = '';
 let voz = '';
@@ -78,7 +79,7 @@ async function enviar() {
         return;
     }
 
-    const video_url = `https://ztlzaqyxfaclpkqgxibs.supabase.co/storage/v1/object/public/videos/${videoPath}`;
+    const video_url = `${SUPABASE_URL}/storage/v1/object/public/videos/${videoPath}`;
 
     etapa = 'upload_audio';
     const audioBlob = await generateAudio(voz, texto);
@@ -100,7 +101,7 @@ async function enviar() {
         return;
     }
 
-    const audio_url = `https://ztlzaqyxfaclpkqgxibs.supabase.co/storage/v1/object/public/videos/${audioPath}`;
+    const audio_url = `${SUPABASE_URL}/storage/v1/object/public/videos/${audioPath}`;
 
     etapa = 'enviando_dreamface';
     await supabase.from('criativos').insert({

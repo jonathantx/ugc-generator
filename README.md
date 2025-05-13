@@ -76,9 +76,17 @@ npm run dev
 
 ### 🛠️ Setup do Supabase
 
-1. Crie um projeto no [Supabase](https://supabase.com/)
-2. Crie um bucket público chamado `videos` em `Storage`
-3. Vá até o menu “SQL Editor” → cole e execute o conteúdo de [`supabase/supabase-setup.sql`](./supabase/supabase-setup.sql)
+1. Instale a Supabase CLI se necessário: https://supabase.com/docs/guides/cli
+2. Autentique e conecte com seu projeto:
+```
+supabase login
+supabase link --project-ref seu_project_ref
+```
+3. Rode as migrations para criar as tabelas e políticas:
+```
+supabase db push
+```
+4. Crie o bucket de storage manualmente
 
 ## 📄 Considerações Finais
 
